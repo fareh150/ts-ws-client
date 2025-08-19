@@ -12,6 +12,7 @@ export const connectToServer = () =>
 const addListeners = (socket: Socket) =>
 {
     const serverStatusLabel = document.querySelector<HTMLSpanElement>('#server-status')!;
+    const clientsUl = document.querySelector<HTMLUListElement>('#clients-ul')!;
 
     socket.on('connect', () => {
         serverStatusLabel.innerText = 'online';
@@ -21,4 +22,10 @@ const addListeners = (socket: Socket) =>
     socket.on('disconnect', () => {
         serverStatusLabel.innerText = 'offline';
     })
+
+    socket.on('clients-updated', (clients: string[]) =>
+    {
+        clientsUl.innerHTML = clients.map(client => `<li>${client}</li>`).join('');
+    })
+
 }
