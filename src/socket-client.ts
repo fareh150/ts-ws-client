@@ -49,9 +49,10 @@ const addListeners = (socket: Socket) =>
         messageInput.value = '';
     });
 
-    socket.on('message-from-server', (payload: { fullname: string, message: string}) => {
+    socket.on('message-from-server', (payload: { fullName: string, message: string}) => {
         const newMessage = document.createElement('li');
-        newMessage.innerText = `${payload.fullname}: ${payload.message}`;
+
+        newMessage.innerText = `${payload.fullName}: ${payload.message}`;
         messagesUl.appendChild(newMessage);
         messagesUl.scrollTop = messagesUl.scrollHeight;
         
