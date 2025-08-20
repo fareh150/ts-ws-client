@@ -16,10 +16,10 @@ export const connectToServer = (token: string) =>
     
     socket = manager.socket('/');
 
-    addListeners(socket);
+    addListeners();
 }
 
-const addListeners = (socket: Socket) =>
+const addListeners = () =>
 {
     const serverStatusLabel = document.querySelector<HTMLSpanElement>('#server-status')!;
     const clientsUl = document.querySelector<HTMLUListElement>('#clients-ul')!;
