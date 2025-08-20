@@ -16,10 +16,10 @@ const addListeners = (socket: Socket) =>
 
     const messageForm = document.querySelector<HTMLFormElement>('#message-form')!;
     const messageInput = document.querySelector<HTMLInputElement>('#message-input')!;
+    const messagesUl = document.querySelector<HTMLUListElement>('#messages-ul')!;
 
     socket.on('connect', () => {
         serverStatusLabel.innerText = 'online';
-        
     })
 
     socket.on('disconnect', () => {
@@ -43,5 +43,13 @@ const addListeners = (socket: Socket) =>
 
         messageInput.value = '';
     });
+
+    socket.on('message-from-server', (payload: { fullname: string, message: string}) => {
+        const newMessage = document.createElement('li');
+        newMessage.innerText = `${payload.fullname}: ${payload.message}`;
+        messagesUl.appendChild(newMessage);
+        messagesUl.scrollTop = messagesUl.scrollHeight;
+        
+    })
 
 }
